@@ -1,5 +1,5 @@
 "use client";
-import {API_KEY} from "@/constants";
+import {API_KEY, POOL} from "@/constants";
 import {useCallback, useEffect, useState, useRef} from "react";
 import {
   Pagination,
@@ -13,27 +13,7 @@ import {
 import {formatNumberEUA} from "../utils/data";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
-import {Label} from "@/components/ui/label";
-
-interface Swap {
-  origin: string;
-  id: string;
-  timestamp: string;
-  __typename: string;
-  pool: {
-    id: string;
-    token0: {
-      symbol: string;
-    };
-    token1: {
-      symbol: string;
-    };
-  };
-  sender: string;
-  amount0: string;
-  amount1: string;
-  amountUSD: string;
-}
+import {Swap} from "@/types";
 
 export default function Swaps() {
   const [swaps, setSwaps] = useState<Swap[]>([]);
@@ -59,7 +39,7 @@ export default function Swaps() {
 
     const query = `{
       swaps(where: { 
-        pool: "0xd5d3022d63b220609bb52842c1b47157e046f5ca",
+        pool: "${POOL}",
         origin: "${wallet}" 
       }, orderBy: timestamp, orderDirection: desc) {
         origin

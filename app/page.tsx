@@ -1,10 +1,11 @@
 "use client";
-import {API_KEY} from "@/constants";
+import {API_KEY, MKF} from "@/constants";
+import {TokenData} from "@/types";
 import {useCallback, useEffect, useState} from "react";
 
 const query = `
  {
-  token(id:"0x66f364f908c662772f5b7ecd58488f372c584833") {
+  token(id:"${MKF}") {
     id,
     symbol,
     name,
@@ -27,26 +28,6 @@ const query = `
 }
 
 `;
-
-interface TokenData {
-  id: string;
-  symbol: string;
-  name: string;
-  decimals: string;
-  poolCount: string;
-  txCount: string;
-  untrackedVolumeUSD: string;
-  volumeUSD: string;
-  feesUSD: string;
-  totalValueLocked: string;
-  totalValueLockedUSD: string;
-  totalValueLockedUSDUntracked: string;
-  derivedETH: string;
-  whitelistPools: {
-    id: string;
-  }[];
-  totalSupply: string;
-}
 
 export default function Home() {
   const [token, setToken] = useState<TokenData | null>(null);
